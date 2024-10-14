@@ -1,4 +1,4 @@
-const UnauthenticatedError = require("../error/authenticated");
+const UnauthenticatedError = require("../Errors/unauthenticated");
 const User = require("../Models/User");
 const jwt = require('jsonwebtoken');
 const secret = process.env.SECRET;

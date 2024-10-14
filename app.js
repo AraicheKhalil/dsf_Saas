@@ -2,20 +2,25 @@
 require('dotenv').config();
 require("express-async-errors");
 const cors = require('cors')
-
 const express = require('express');
+
+
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./Config/mongodb/connect');
 const errorHandler = require('./Middlewares/errorHandler');
 const notFound = require('./Middlewares/notFound');
 const UserAuth = require('./Routes/User');
+const authenticationMiddeware = require('./Middlewares/authenticated')
 const app = express();
 
 app.use(cors())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+
+
 
 
 // routes

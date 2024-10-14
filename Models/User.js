@@ -4,7 +4,9 @@ const jwt = require('jsonwebtoken');
 const { isEmail } = require('validator')
 const secret = process.env.JWT_SECRET
 const lifetime = process.env.JWT_LIFETIME 
+const crypto = require('crypto');
 const UnauthenticatedError = require('../Errors/unauthenticated')
+
 
 const userSchema = new mongoose.Schema({
   first_name: {
@@ -15,6 +17,13 @@ const userSchema = new mongoose.Schema({
   last_name: {
     type: String,
     required: [true, "The Last Name must be Provided"],
+    trim: true
+  },
+  profile_picture : {
+    type : String
+  },
+  phone : {
+    type : String,
     trim: true
   },
   email: {
@@ -36,8 +45,14 @@ const userSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['pro', 'enterprise'],
+    enum: ['free', 'pro', 'enterprise'],
     required: [true, "The Application Type is So Important"],
+    default : 'free',
+  },
+  googleId: {
+    type: String, // To store the Google ID
+    unique: true,
+    sparse: true, // Makes this field optional
   },
   company_id: {
     type: mongoose.Schema.Types.ObjectId,
@@ -47,6 +62,20 @@ const userSchema = new mongoose.Schema({
   stripe_customer_id: {
     type: String,
     default: null, // Set by Stripe for both Pro and Enterprise users
+  },
+  otp: {
+    type: String,
+  },
+  otpExpiry: Date,
+  isVerified: { 
+    type: Boolean,
+    default: false 
+  },
+  resetPasswordToken: {
+    type: String,
+  },
+  resetPasswordExpires: {
+    type: Date,
   },
   created_at: {
     type: Date,
@@ -71,6 +100,17 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+
+userSchema.methods.generateOTP = function () {
+  const otp = crypto.randomInt(100000, 999999).toString(); 
+  this.otp = otp;
+  this.otpExpiry = Date.now() + 1 * 60 * 1000; 
+  return otp;
+};
+
+userSchema.methods.isValidOTP = function (inputOtp) {
+  return this.otp === inputOtp && this.otpExpiry > Date.now();
+};
 
 userSchema.methods.generateJWT = function () {
   return jwt.sign(
@@ -98,6 +138,18 @@ userSchema.statics.login = async function(email,password){
   throw new UnauthenticatedError("invalid Credential, Please try again");
 }
 
+
+userSchema.methods.createPasswordResetToken = function() {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  
+  // Hash the token and save to the database
+  this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+  
+  // Set token expiration to 1 hour
+  this.resetPasswordExpires = Date.now() + 60 * 60 * 1000;
+
+  return resetToken;
+};
 
 
 module.exports = mongoose.model('User', userSchema);

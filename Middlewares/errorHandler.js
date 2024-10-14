@@ -8,7 +8,7 @@ const errorHandler = (err, req, res, next) => {
     }
 
     if (err.code && err.code == 11000){
-      return res.status(StatusCodes.BAD_REQUEST).json({err : "this Email is Already Registred"})
+      return res.status(StatusCodes.BAD_REQUEST).json({err : "this Email is Already Registred"});
     }
 
 
