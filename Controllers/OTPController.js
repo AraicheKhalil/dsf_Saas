@@ -25,7 +25,9 @@ const verifyOTP = async (req, res) => {
             token: token,
             user: {
                 name: `${user.first_name}`,
+                lastname : `${user.last_name}`,
                 email: user.email,
+                isVerified : user.isVerified,
             },
         });
     } else {

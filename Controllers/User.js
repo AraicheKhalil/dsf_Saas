@@ -72,12 +72,13 @@ const Login = async (req,res) => {
         // Send OTP via email
         sendOTPEmail(user.email, otp);
 
-        return res.status(StatusCodes.OK).json({
+        return res.status(StatusCodes.UNAUTHORIZED).json({
             status: "pending_verification",
             message: "Account not verified. A new OTP has been sent to your email.",
             user: {
                 email: user.email,
             },
+            isVerified : user.isVerified
         });
     }
 
@@ -91,6 +92,7 @@ const Login = async (req,res) => {
             name : `${user.first_name}`,
             lastname : `${user.last_name}`,
             email : user.email,
+            isVerified : user.isVerified
         },
     })
 }
