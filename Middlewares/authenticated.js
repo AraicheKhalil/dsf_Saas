@@ -1,7 +1,7 @@
 const UnauthenticatedError = require("../Errors/unauthenticated");
 const User = require("../Models/User");
 const jwt = require('jsonwebtoken');
-const secret = process.env.SECRET;
+const secret = process.env.JWT_SECRET;
 
 const authenticationMiddeware = async (req,res,next) => {
     const authHeader  = req.headers.authorization;
@@ -14,8 +14,9 @@ const authenticationMiddeware = async (req,res,next) => {
 
     try {
         const encodedPayload = jwt.verify(token,secret)
-        const {id} = encodedPayload;
-        const user = await User.findById(id).select('-password') 
+        // console.log(encodedPayload)
+        const {_id} = encodedPayload;
+        const user = await User.findById(_id).select('-password') 
         req.user = user;
         next();
 

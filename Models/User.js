@@ -114,7 +114,7 @@ userSchema.methods.isValidOTP = function (inputOtp) {
 
 userSchema.methods.generateJWT = function () {
   return jwt.sign(
-    { _id: this._id, email: this.email, role: this.role, type: this.type },
+    { _id: this._id, email: this.email },
     secret,
     { expiresIn: lifetime }
   );

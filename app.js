@@ -10,8 +10,9 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./Config/mongodb/connect');
 const errorHandler = require('./Middlewares/errorHandler');
 const notFound = require('./Middlewares/notFound');
+const authenticationMiddeware = require('./Middlewares/authenticated');
 const UserAuth = require('./Routes/User');
-const authenticationMiddeware = require('./Middlewares/authenticated')
+const UserPreferences = require('./Routes/UserPreferences');
 const app = express();
 
 app.use(cors())
@@ -25,6 +26,9 @@ app.use(bodyParser.json());
 
 // routes
 app.use('/api/v1/auth',UserAuth)
+app.use('/api/v1/preferences',authenticationMiddeware,UserPreferences)
+// app.use('/api/v1/activities',UserAuth)
+
 
 app.use(errorHandler);
 app.use(notFound);
