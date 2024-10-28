@@ -13,7 +13,7 @@ const authenticationMiddeware = require('./Middlewares/authenticated');
 const UserAuth = require('./Routes/User');
 const UserPreferences = require('./Routes/UserPreferences');
 const UserProfile = require('./Routes/UserProfile');
-const UploadedDocs = require('./Routes/Docs');
+// const UploadedDocs = require('./Routes/Docs');
 const UserToolsActivities = require('./Routes/UserToolsActivities');
 // const oauthRoutes = require('./Routes/Oauth');
 
