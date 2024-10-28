@@ -119,7 +119,7 @@ const trackToolSubmission = async (req, res) => {
     }
 
     const membership = user.membership; // "basic" or "pro"
-    const submissionLimit = membership === 'pro' ? 10 : 5; // Set limit based on membership
+    const submissionLimit = membership === 'pro' ? 100 : 10; // Set limit based on membership
 
     // Find or create the user's activity record
     let userActivities = await UserActivities.findOne({ user: userId });
@@ -323,7 +323,7 @@ const getDashboardSubmissionCounts = async (req, res) => {
 
     // Set limits based on membership type
     const membership = user.membership; // "free" or "pro"
-    const submissionLimit = membership === 'pro' ? 1000 : 10; // 1000 for pro, 10 for free
+    const submissionLimit = membership === 'pro' ? 100 : 10; // 1000 for pro, 10 for free
 
     // Retrieve user's activity record
     const userActivities = await UserActivities.findOne({ user: userId });
