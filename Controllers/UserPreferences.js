@@ -104,7 +104,7 @@ const CreateOrUpdatePreferences = async (req, res) => {
 
 
 const GetPreferences = async (req, res) => {
-    console.log('Authenticated User ID:', req.user.id);
+    // console.log('Authenticated User ID:', req.user.id);
   const { id: userId } = req.user; // Get the authenticated user ID
 
   try {

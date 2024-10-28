@@ -25,4 +25,5 @@ router.post('/resend-otp', resendOTP);  // New route for resending OTP
 
 
 
+
 module.exports = router;

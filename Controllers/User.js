@@ -92,7 +92,8 @@ const Login = async (req,res) => {
             name : `${user.first_name}`,
             lastname : `${user.last_name}`,
             email : user.email,
-            isVerified : user.isVerified
+            isVerified : user.isVerified,
+            isProfileComplete : user.isProfileComplete
         },
     })
 }
@@ -112,7 +113,7 @@ const Register = async (req,res) => {
 
     res.status(StatusCodes.CREATED).json({
         // token : token,
-        // otp : otp,
+        otp : otp,
         status : "success",
         message: 'Registration successful! Please Verify your Account',
         // user : {
@@ -222,7 +223,6 @@ const resendOTP = async (req, res) => {
         otp: newOtp,  // Optional: remove in production for security
     });
 };
-
 
 
 module.exports = {

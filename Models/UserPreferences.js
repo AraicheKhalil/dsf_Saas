@@ -34,17 +34,23 @@
 
 
 const mongoose = require('mongoose');
+
 const optionSchema = new mongoose.Schema({
   name:  String ,
   description:  String ,
-  link:  String 
+  link:  String ,
 });
 
-
+const optionSchemaSMT = new mongoose.Schema({
+  name:  String ,
+  description:  String ,
+  link:  String ,
+  type : String
+});
 
 const userPreferencesSchema = new mongoose.Schema({
   SmartDocProcessors: {
-    type: [optionSchema],
+    type: [optionSchemaSMT],
     default: [],
   },
   GenAi: {
@@ -52,10 +58,6 @@ const userPreferencesSchema = new mongoose.Schema({
     default: [],
   },
   Conversions: {
-    type: [optionSchema],
-    default: [],
-  },
-  ImportsMethods: {
     type: [optionSchema],
     default: [],
   },

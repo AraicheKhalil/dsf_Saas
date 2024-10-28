@@ -3,20 +3,24 @@ require('dotenv').config();
 require("express-async-errors");
 const cors = require('cors')
 const express = require('express');
-
-
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+
 const connectDB = require('./Config/mongodb/connect');
 const errorHandler = require('./Middlewares/errorHandler');
 const notFound = require('./Middlewares/notFound');
 const authenticationMiddeware = require('./Middlewares/authenticated');
 const UserAuth = require('./Routes/User');
 const UserPreferences = require('./Routes/UserPreferences');
+const UserProfile = require('./Routes/UserProfile');
+const UploadedDocs = require('./Routes/Docs');
+const UserToolsActivities = require('./Routes/UserToolsActivities');
+// const oauthRoutes = require('./Routes/Oauth');
+
 const app = express();
+const rootVersion = '/api/v1';
 
 app.use(cors())
-app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -27,7 +31,8 @@ app.use(bodyParser.json());
 // routes
 app.use('/api/v1/auth',UserAuth)
 app.use('/api/v1/preferences',authenticationMiddeware,UserPreferences)
-// app.use('/api/v1/activities',UserAuth)
+app.use('/api/v1/profile',authenticationMiddeware,UserProfile)
+app.use('/api/v1/activities',authenticationMiddeware, UserToolsActivities)
 
 
 app.use(errorHandler);

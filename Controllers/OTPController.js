@@ -28,6 +28,7 @@ const verifyOTP = async (req, res) => {
                 lastname : `${user.last_name}`,
                 email: user.email,
                 isVerified : user.isVerified,
+                isProfileComplete : user.isProfileComplete
             },
         });
     } else {

@@ -11,12 +11,10 @@ const UnauthenticatedError = require('../Errors/unauthenticated')
 const userSchema = new mongoose.Schema({
   first_name: {
     type: String,
-    required: [true, "The First Name must be Provided"],
-    trim: true
+    trim: true,
   },
   last_name: {
     type: String,
-    required: [true, "The Last Name must be Provided"],
     trim: true
   },
   profile_picture : {
@@ -24,6 +22,10 @@ const userSchema = new mongoose.Schema({
   },
   phone : {
     type : String,
+    trim: true
+  },
+  company_name : {
+    type: String,
     trim: true
   },
   email: {
@@ -43,11 +45,11 @@ const userSchema = new mongoose.Schema({
     enum: ['admin', 'contributor'],
     default: 'admin',
   },
-  type: {
+  membership: { // type
     type: String,
-    enum: ['free', 'pro', 'enterprise'],
+    enum: ['basic', 'pro', 'enterprise'],
     required: [true, "The Application Type is So Important"],
-    default : 'free',
+    default : 'basic',
   },
   googleId: {
     type: String, // To store the Google ID
@@ -70,6 +72,10 @@ const userSchema = new mongoose.Schema({
   isVerified: { 
     type: Boolean,
     default: false 
+  },
+  isProfileComplete: {
+    type: Boolean,
+    default: false, // Set to false by default for new users
   },
   resetPasswordToken: {
     type: String,
