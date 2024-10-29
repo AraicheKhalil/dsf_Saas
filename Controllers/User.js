@@ -150,7 +150,7 @@ const requestPasswordReset = async (req, res) => {
 
     // Send the token via email
     // const resetURL = `${req.protocol}://${req.get('host')}/api/v1/resetPassword/${resetToken}`;
-    const resetURL = `${process.env.CLIENT_URL}/auth/us/reset-password/${resetToken}`
+    const resetURL = `${process.env.CLIENT_URL_PRODUCTION}/auth/us/reset-password/${resetToken}`
     const message = `Click on the following link to reset your password: ${resetURL}`;
 
     try {
