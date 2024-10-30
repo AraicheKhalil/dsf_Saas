@@ -13,7 +13,7 @@ const authenticationMiddeware = require('./Middlewares/authenticated');
 const UserAuth = require('./Routes/User');
 const UserPreferences = require('./Routes/UserPreferences');
 const UserProfile = require('./Routes/UserProfile');
-// const UploadedDocs = require('./Routes/Docs');
+const UserSettings = require('./Routes/UserSettings');
 const UserToolsActivities = require('./Routes/UserToolsActivities');
 // const oauthRoutes = require('./Routes/Oauth');
 
@@ -33,6 +33,8 @@ app.use('/api/v1/auth',UserAuth)
 app.use('/api/v1/preferences',authenticationMiddeware,UserPreferences)
 app.use('/api/v1/profile',authenticationMiddeware,UserProfile)
 app.use('/api/v1/activities',authenticationMiddeware, UserToolsActivities)
+app.use('/api/v1/settings',authenticationMiddeware, UserSettings)
+
 
 
 app.use(errorHandler);

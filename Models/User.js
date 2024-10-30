@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     minlength : 8,
   },
+  location: {
+    type: String,
+    trim : true
+  },
   role: {
     type: String,
     enum: ['admin', 'contributor'],
