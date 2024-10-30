@@ -9,6 +9,10 @@ const UnauthenticatedError = require('../Errors/unauthenticated')
 
 
 const userSchema = new mongoose.Schema({
+  full_name : {
+    type: String,
+    trim: true,
+  },
   first_name: {
     type: String,
     trim: true,
