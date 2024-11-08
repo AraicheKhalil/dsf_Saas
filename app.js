@@ -42,7 +42,7 @@ app.use(notFound);
 
 const start = async () => {
     try {
-        await connectDB(process.env.CONNECTION_STRING);
+        await connectDB(process.env.CONNECTION_STRING,process.env.USERNAME,process.env.PASSWORD);
         app.listen(process.env.PORT || 4500 ,() => {
             console.log(`the app running successufully on Port ${process.env.PORT}`);
         });

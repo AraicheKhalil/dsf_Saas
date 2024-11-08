@@ -59,6 +59,10 @@ const userSchema = new mongoose.Schema({
     required: [true, "The Application Type is So Important"],
     default : 'basic',
   },
+  submissionLimit : {
+    type : Number,
+    default : 100,
+  },
   googleId: {
     type: String, // To store the Google ID
     unique: true,

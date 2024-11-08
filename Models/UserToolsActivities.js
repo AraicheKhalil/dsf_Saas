@@ -1,11 +1,9 @@
+
+
 // const mongoose = require('mongoose');
 
+// // Schema for individual tool activities
 // const activitySchema = new mongoose.Schema({
-//   toolCategory: {
-//     type: String,
-//     enum: ['SmartDoc', 'GenAI'],
-//     required: true,
-//   },
 //   toolType: {
 //     type: String,
 //     required: true,
@@ -16,13 +14,21 @@
 //   },
 // });
 
+// // Schema for tracking user activities for SmartDoc and GenAI
 // const userActivitiesSchema = new mongoose.Schema({
 //   user: {
 //     type: mongoose.Schema.Types.ObjectId,
 //     ref: 'User',
 //     required: true,
 //   },
-//   activities: [activitySchema],
+//   SmartDoc: {
+//     type: [activitySchema], // Nested document for SmartDoc activities
+//     default: [],
+//   },
+//   GenAI: {
+//     type: [activitySchema], // Nested document for GenAI activities
+//     default: [],
+//   },
 //   createdAt: {
 //     type: Date,
 //     default: Date.now,
@@ -36,18 +42,22 @@
 // module.exports = mongoose.model('UserActivities', userActivitiesSchema);
 
 
-
 const mongoose = require('mongoose');
 
-// Schema for individual tool activities
+// Schema for individual tool activities with extraction count and auto-saved date
 const activitySchema = new mongoose.Schema({
   toolType: {
     type: String,
     required: true,
   },
-  submissions: {
+  extractionCount: {
     type: Number,
     default: 0,
+    required: true,
+  },
+  extractDate: {
+    type: Date,
+    default: Date.now, // Automatically sets to current date
   },
 });
 
@@ -59,11 +69,11 @@ const userActivitiesSchema = new mongoose.Schema({
     required: true,
   },
   SmartDoc: {
-    type: [activitySchema], // Nested document for SmartDoc activities
+    type: [activitySchema],
     default: [],
   },
   GenAI: {
-    type: [activitySchema], // Nested document for GenAI activities
+    type: [activitySchema],
     default: [],
   },
   createdAt: {
@@ -77,3 +87,4 @@ const userActivitiesSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('UserActivities', userActivitiesSchema);
+
